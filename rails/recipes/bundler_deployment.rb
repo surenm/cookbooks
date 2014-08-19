@@ -7,7 +7,7 @@ node[:deploy].each do |application, deploy|
   execute 'bundle install --deployment' do
     cwd current_path
     user 'deploy'
-    command 'bundle install --deployment --without development test'
+    command "bundle install --deployment --without #{deploy[:ignore_bundler_groups].join(' ')} --path #{deploy[:home]}/.bundler/#{application}"
     environment 'RAILS_ENV' => rails_env
   end
 end
