@@ -4,7 +4,7 @@ node[:deploy].each do |application, deploy|
 
   Chef::Log.info("bundle install --deployment --without #{deploy[:ignore_bundler_groups].join(' ')} --path #{deploy[:home]}/.bundler/#{application}")
 
-  execute 'bundle install --deployment' do
+  execute '"bundle install --deployment --without #{deploy[:ignore_bundler_groups].join(' ')} --path #{deploy[:home]}/.bundler/#{application}"' do
     cwd current_path
     user 'deploy'
     
