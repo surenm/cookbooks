@@ -31,8 +31,6 @@ node[:deploy].each do |application, deploy|
       owner deploy[:user]
       variables(:database => database, :environment => deploy[:rails_env])
 
-      notifies :run, "execute[restart Rails app #{application}]"
-
       only_if do
         File.directory?("#{deploy[:deploy_to]}/shared/config/")
       end
