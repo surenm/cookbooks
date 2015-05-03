@@ -1,0 +1,6 @@
+God.watch do |w|
+    w.name = "<%= @name %>"
+    w.env = <%= @env %>
+    w.start = "<%= @deploy_to %>/collector/snowplow-stream-collector-0.3.0 --config <%= @deploy_to %>/collector/config.hocon"
+    w.keepalive
+end
