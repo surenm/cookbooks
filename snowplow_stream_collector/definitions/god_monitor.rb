@@ -24,7 +24,7 @@ define :god_monitor, :deploy_to => nil, :env => {} do
     action :start                                                                                        
   end
 
-  template "#{deploy_to}/current/collector/config.hocon" do
+  template "#{params[:deploy_to]}/current/collector/config.hocon" do
     source "config.hocon.erb"
     owner "root"
     group "root"
