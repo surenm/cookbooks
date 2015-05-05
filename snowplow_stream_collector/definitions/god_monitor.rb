@@ -23,16 +23,6 @@ define :god_monitor, :deploy_to => nil, :env => {} do
     supports :status => true                                                                             
     action :start                                                                                        
   end
-
-  template "#{params[:deploy_to]}/current/collector/config.hocon" do
-    source "config.hocon.erb"
-    owner "root"
-    group "root"
-    mode 0755
-    variables(
-      :kinesis_stream_name => params[:env]["KINESIS_STREAM_NAME"]
-    )
-  end                                                                                                     
   
   template "/etc/god/conf.d/#{params[:name]}.god" do                                                      
     source "collector.god.erb"                                                                            
@@ -41,7 +31,7 @@ define :god_monitor, :deploy_to => nil, :env => {} do
     mode 0644
     variables(
       :name => params[:name],
-      :deploy_to => params[:deploy_to],                                                                 
+      :current_path => params[:current_path],                                                                 
       :env => params[:env]                                                                              
     )
     notifies :restart, resources(:service => "god")                                                       

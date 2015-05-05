@@ -7,6 +7,7 @@
 #              framework written in Ruby.
 #
 
+GOD_BINARY=`which god`
 CONF_DIR=/etc/god
 
 RETVAL=0
@@ -17,20 +18,20 @@ RETVAL=0
 case "$1" in
     start)
       # Create pid directory
-      /usr/bin/god -c $CONF_DIR/master.god
+      $GOD_BINARY -c $CONF_DIR/master.god
       RETVAL=$?
   ;;
     stop)
-      /usr/bin/god terminate
+      $GOD_BINARY terminate
       RETVAL=$?
   ;;
     restart)
-      /usr/bin/god terminate
-      /usr/bin/god -c $CONF_DIR/master.god
+      $GOD_BINARY terminate
+      $GOD_BINARY -c $CONF_DIR/master.god
       RETVAL=$?
   ;;
     status)
-      /usr/bin/god status
+      $GOD_BINARY status
       RETVAL=$?
   ;;
     *)
