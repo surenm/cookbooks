@@ -1,7 +1,17 @@
 include_recipe 'deploy'
 
 node[:deploy].each do |application, deploy|
+  env = deploy["environment"]
   deploy_to = deploy["deploy_to"]
+
+  Chef::Log.info("Pip install dependencies from requirements.txt...")
+  script "Install python requirements" do
+    user "root"
+    code <<-EOH
+    /usr/bin/pip install -r #{deploy_to}/current/requirements.txt
+    EOH
+  end
+
   command_generator_script = "#{deploy_to}/current/kinesis_consumer/kcl_command_generator.py"
   consumer_properties_file = "#{deploy_to}/current/kinesis_consumer/consumer.properties"
   java_binary = `which java`
