@@ -1,6 +1,10 @@
 include_recipe 'deploy'
 
 node[:deploy].each do |application, deploy|
+  env = deploy["environment"]
+
+  deploy_to = deploy["deploy_to"]
+  current_path = File.join deploy_to, 'current'
 
   Chef::Log.info("Generating config.hocon for collector...")
   template "#{deploy_to}/current/collector/config.hocon" do

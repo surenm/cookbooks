@@ -1,6 +1,7 @@
 include_recipe 'deploy'
 
 node[:deploy].each do |application, deploy|
+  deploy_to = deploy["deploy_to"]
   command_generator_script = "#{deploy_to}/current/kinesis_consumer/kcl_command_generator.py"
   consumer_properties_file = "#{deploy_to}/current/kinesis_consumer/consumer.properties"
   java_binary = `which java`
