@@ -21,6 +21,7 @@ node[:deploy].each do |application, deploy|
   Chef::Log.info("Adding snowplow_stream_collector config for god...")
 
   god_monitor "snowplow_stream_collector" do
+    source "collector.god.erb"
     current_path current_path
     env env
     action :nothing

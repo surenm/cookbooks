@@ -25,7 +25,7 @@ define :god_monitor, :deploy_to => nil, :env => {} do
   end
   
   template "/etc/god/conf.d/#{params[:name]}.god" do                                                      
-    source "collector.god.erb"                                                                            
+    source params[:source]
     owner "root"                                                                                          
     group "root"                                                                                          
     mode 0644

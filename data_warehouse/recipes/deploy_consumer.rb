@@ -5,11 +5,9 @@ node[:deploy].each do |application, deploy|
   deploy_to = deploy["deploy_to"]
 
   Chef::Log.info("Pip install dependencies from requirements.txt...")
-  script "Install python requirements" do
+  execute "/usr/bin/pip install -r #{deploy_to}/current/requirements.txt" do
     user "root"
-    code <<-EOH
-    /usr/bin/pip install -r #{deploy_to}/current/requirements.txt
-    EOH
+    action :run
   end
 
   command_generator_script = "#{deploy_to}/current/kinesis_consumer/kcl_command_generator.py"
@@ -35,6 +33,7 @@ node[:deploy].each do |application, deploy|
   consumer_exe = `#{command_generator}`
 
   god_monitor "kinesis_consumer" do
+    source "kinesis_consumer.god.erb"
     consumer_exe consumer_exe
     env env
     action :nothing
