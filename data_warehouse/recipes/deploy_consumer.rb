@@ -1,7 +1,6 @@
 include_recipe 'deploy'
 
 node[:deploy].each do |application, deploy|
-  before_restart do
     env = deploy["environment"]
     deploy_to = deploy["deploy_to"]
 
@@ -39,5 +38,4 @@ node[:deploy].each do |application, deploy|
       env env
       action :nothing
     end
-  end
 end
