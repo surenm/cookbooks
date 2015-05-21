@@ -6,7 +6,7 @@ node[:deploy].each do |application, deploy|
     deploy_to = deploy["deploy_to"]
 
     Chef::Log.info("Pip install dependencies from requirements.txt...")
-    execute "/usr/bin/pip install -r #{deploy_to}/current/requirements.txt" do
+    execute "/usr/local/bin/pip install -r #{deploy_to}/current/requirements.txt" do
       user "root"
       action :run
     end
