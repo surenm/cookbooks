@@ -29,11 +29,7 @@ define :god_monitor, :deploy_to => nil, :env => {} do
     owner "root"                                                                                          
     group "root"                                                                                          
     mode 0644
-    variables(
-      :name => params[:name],
-      :current_path => params[:current_path],                                                                 
-      :env => params[:env]                                                                              
-    )
-    notifies :restart, resources(:service => "god")                                                       
+    variables(params)
+    notifies :restart, resources(:service => "god")
   end                                                                                                     
 end
