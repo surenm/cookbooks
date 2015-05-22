@@ -12,7 +12,7 @@ node[:deploy].each do |application, deploy|
 
     command_generator_script = "#{deploy_to}/current/kinesis_consumer/kcl_command_generator.py"
     consumer_properties_file = "#{deploy_to}/current/kinesis_consumer/consumer.properties"
-    java_binary = `which java`
+    java_binary = `which java`.strip
 
     Chef::Log.info("Generating consumer.properties for Kinesis Consumer...")
     template consumer_properties_file do
