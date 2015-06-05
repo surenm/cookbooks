@@ -11,7 +11,7 @@ node[:deploy].each do |application, deploy|
     end
 
     command_generator_script = "#{deploy_to}/current/kinesis_consumer/kcl_command_generator.py"
-    consumer_properties_file = "#{deploy_to}/current/kinesis_consumer/consumer.properties"
+    consumer_properties_file = "#{deploy_to}/current/kinesis_consumer/blast_stats_app_consumer.properties"
     java_binary = `which java`.strip
 
     Chef::Log.info("Generating consumer.properties for Kinesis Consumer...")
@@ -23,8 +23,8 @@ node[:deploy].each do |application, deploy|
       variables(
           :kinesis_stream_name => env["KINESIS_STREAM_NAME"],
           :aws_region => env["AWS_REGION"],
-          :kinesis_consumer_script => "#{deploy_to}/current/kinesis_consumer/events_consumer.py",
-          :kinesis_consumer_app_name => "EventsConsumer"
+          :kinesis_consumer_script => "#{deploy_to}/current/kinesis_consumer/blast_stats_app_consumer.py",
+          :kinesis_consumer_app_name => "BlastStatsAppConsumer"
       )
     end
 
