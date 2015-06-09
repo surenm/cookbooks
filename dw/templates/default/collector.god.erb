@@ -1,6 +1,7 @@
 God.watch do |w|
     w.name = "<%= @name %>"
     w.env = <%= @env %>
-    w.start = "<%= @current_path %>/collector/snowplow-stream-collector-0.3.0 --config <%= @current_path %>/collector/config.hocon &>/tmp/collector.log"
+    w.start = "<%= @current_path %>/collector/snowplow-stream-collector-0.3.0 --config <%= @current_path %>/collector/config.hocon"
+    w.log = "/var/log/collector.log"
     w.keepalive
 end

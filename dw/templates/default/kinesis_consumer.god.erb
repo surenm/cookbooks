@@ -1,6 +1,7 @@
 God.watch do |w|
     w.name = "<%= @name %>"
     w.env = <%= @env %>
-    w.start = "<%= @consumer_exe %> &>/tmp/consumer.log"
+    w.start = "<%= @consumer_exe %>"
+    w.log = "/var/log/consumer.log"
     w.keepalive
 end
