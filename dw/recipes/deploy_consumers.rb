@@ -30,11 +30,10 @@ node[:deploy].each do |application, deploy|
 
     Chef::Log.info("Adding consumer config for god...")
     command_generator = "#{command_generator_script} --print_command --java #{java_binary} --properties #{consumer_properties_file}"
-    consumer_exe = `#{command_generator}`
 
     god_monitor "kinesis_consumer" do
       source "kinesis_consumer.god.erb"
-      consumer_exe consumer_exe
+      consumer_exe `#{command_generator}`
       env env
       action :nothing
     end
