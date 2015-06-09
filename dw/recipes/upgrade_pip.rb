@@ -1,13 +1,11 @@
 Chef::Log.info("Updating pip to the latest version")
-
-ruby_block "Get Pip executable" do
-  block do
-    pip_executable = `which pip`
-  end
+execute "/usr/bin/pip install -U pip" do
+  user "root"
+  only_if { ::File.exists?('/usr/bin/pip')}
   action :run
 end
-
-execute "#{pip_executable} install -U pip" do
+execute "/usr/local/bin/pip install -U pip" do
   user "root"
+  only_if { ::File.exists?('/usr/local/bin/pip')}
   action :run
 end
